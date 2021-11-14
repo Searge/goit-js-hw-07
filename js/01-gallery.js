@@ -13,9 +13,10 @@ function onCreateGalleryItem(galleryItems) {
     .map(({ preview, original, description }) => {
       return `
         <div class="gallery__item">
-             <a class="gallery__link" href="large-image.jpg">
+             <a class="gallery__link" href="${original}">
                 <img
                     class="gallery__image lazyload"
+
                     data-src="${preview}"
                     data-source="${original}"
                     alt="${description}"
@@ -27,13 +28,13 @@ function onCreateGalleryItem(galleryItems) {
     .join('');
 }
 
-documentGallery.addEventListener('click', event => {
-  event.preventDefault();
-  if (event.target.nodeName !== 'IMG') {
+documentGallery.addEventListener('click', e => {
+  e.preventDefault();
+  if (e.target.nodeName !== 'IMG') {
     return;
   }
   openOriginalImage = basicLightbox.create(`
-		<img src="${event.target.dataset.source}" width="1280" height="900">
+		<img src="${e.target.dataset.source}" width="1280" height="900">
 	`);
   openOriginalImage.show();
 });
